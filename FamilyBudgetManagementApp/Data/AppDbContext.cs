@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FamilyBudgetManagementApp.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace FamilyBudgetManagementApp.Models
+namespace FamilyBudgetManagementApp.Data
 {
     public class AppDbContext : DbContext
     {
