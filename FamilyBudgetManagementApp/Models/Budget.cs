@@ -5,7 +5,7 @@ namespace FamilyBudgetManagementApp.Models
     public class Budget
     {
         [Key]
-        public Guid Id { get; set; }
+        public byte Id { get; set; }
 
         [Required]
         public decimal Balance { get; set; }
