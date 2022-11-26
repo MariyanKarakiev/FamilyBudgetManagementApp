@@ -1,5 +1,6 @@
-﻿using FamilyBudgetManagementApp.Models;
+﻿using FamilyBudgetApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace FamilyBudgetManagementApp.Data
 {
@@ -11,12 +12,7 @@ namespace FamilyBudgetManagementApp.Data
 
         }
 
-        public DbSet<Budget> Bugets { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-        }
+        //DbSet is made virtual for mocking purposes
+        public virtual DbSet<Budget> Bugets { get; set; }
     }
 }

@@ -1,8 +1,7 @@
-﻿using FamilyBudgetManagementApp.Data;
-using FamilyBudgetManagementApp.Models;
+﻿using FamilyBudgetApp.Data.Models;
+using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Services.Contracts;
 using FamilyBudgetManagementApp.ViewModels;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace FamilyBudgetManagementApp.Services
@@ -32,14 +31,11 @@ namespace FamilyBudgetManagementApp.Services
             return new BudgetViewModel();
         }
 
-        public async Task ChargeBudget(decimal amount)
+        public async Task ChargeBudgetAsync(decimal amount)
         {
-            if (amount == 0 || amount < 0)
-            {
-                return;
-            }
+            CheckIfAmountIsEqualOrLessThanZero(amount);
 
-            var budget = await dbContext.FindAsync<Budget>(1);
+            var budget = await dbContext.FindAsync<Budget>((byte)1);
 
             CheckIfBudgetIsNull(budget);
 
@@ -48,12 +44,9 @@ namespace FamilyBudgetManagementApp.Services
             dbContext.SaveChanges();
         }
 
-        public async Task DischargeBudget(decimal amount)
+        public async Task DischargeBudgetAsync(decimal amount)
         {
-            if (amount == 0 || amount < 0)
-            {
-                return;
-            }
+            CheckIfAmountIsEqualOrLessThanZero(amount);
 
             var budget = await dbContext.FindAsync<Budget>(1);
 
@@ -65,11 +58,18 @@ namespace FamilyBudgetManagementApp.Services
             dbContext.SaveChanges();
         }
 
-        private void CheckIfBudgetIsNull(Budget ?budget)
+        private void CheckIfBudgetIsNull(Budget? budget)
         {
             if (budget == null)
             {
                 throw new ArgumentNullException("No budget found!");
+            }
+        }
+        private void CheckIfAmountIsEqualOrLessThanZero(decimal amount)
+        {
+            if (amount <= 0)
+            {
+                throw new ArgumentNullException("Amount is invalid!");
             }
         }
     }

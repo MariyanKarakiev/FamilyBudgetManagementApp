@@ -1,6 +1,5 @@
 ﻿using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Services;
-using FamilyBudgetManagementApp.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace FamilyBudgetManagementApp.Extension
