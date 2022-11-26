@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FamilyBudgetManagementApp.Models
+namespace FamilyBudgetApp.Data.Models
 {
     public class Transaction
     {
+        public Guid Id { get; set; }
     }
 }
