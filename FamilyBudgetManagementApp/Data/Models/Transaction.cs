@@ -34,7 +34,7 @@ namespace FamilyBudgetManagementApp.Models
         public bool IsReccuring { get; set;}
 
         [Required]
-        public short BudgetId { get; set; }
+        public byte BudgetId { get; set; }
         public virtual Budget Budget { get; set; }
     }
 }

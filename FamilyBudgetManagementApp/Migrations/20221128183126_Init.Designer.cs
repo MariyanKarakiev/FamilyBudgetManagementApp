@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamilyBudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221128112302_NoHashSetTransactions")]
-    partial class NoHashSetTransactions
+    [Migration("20221128183126_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,10 +45,7 @@ namespace FamilyBudgetApp.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<short>("BudgetId")
-                        .HasColumnType("smallint");
-
-                    b.Property<byte>("BudgetId1")
+                    b.Property<byte>("BudgetId")
                         .HasColumnType("tinyint");
 
                     b.Property<DateTime>("CreatedOn")
@@ -75,7 +72,7 @@ namespace FamilyBudgetApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BudgetId1");
+                    b.HasIndex("BudgetId");
 
                     b.ToTable("Transactions");
                 });
@@ -84,7 +81,7 @@ namespace FamilyBudgetApp.Migrations
                 {
                     b.HasOne("FamilyBudgetApp.Data.Models.Budget", "Budget")
                         .WithMany("Transactions")
-                        .HasForeignKey("BudgetId1")
+                        .HasForeignKey("BudgetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FamilyBudgetApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,24 +34,23 @@ namespace FamilyBudgetApp.Migrations
                     ReccursOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimesReccuring = table.Column<int>(type: "int", nullable: false),
                     IsReccuring = table.Column<bool>(type: "bit", nullable: false),
-                    BudgetId = table.Column<short>(type: "smallint", nullable: false),
-                    BudgetId1 = table.Column<byte>(type: "tinyint", nullable: false)
+                    BudgetId = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Bugets_BudgetId1",
-                        column: x => x.BudgetId1,
+                        name: "FK_Transactions_Bugets_BudgetId",
+                        column: x => x.BudgetId,
                         principalTable: "Bugets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_BudgetId1",
+                name: "IX_Transactions_BudgetId",
                 table: "Transactions",
-                column: "BudgetId1");
+                column: "BudgetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
