@@ -1,6 +1,8 @@
-﻿using FamilyBudgetApp.Data.Models;
+﻿using FamilyBudgetApp.Data.Config;
+using FamilyBudgetApp.Data.Models;
 using FamilyBudgetManagementApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection.Metadata;
 
 
@@ -20,7 +22,7 @@ namespace FamilyBudgetManagementApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Budget>().HasData(new Budget {Id = (byte)1, Balance = 0.0M});
+            modelBuilder.ApplyConfiguration(new BudgetConfiguration());
         }
     }
 }
