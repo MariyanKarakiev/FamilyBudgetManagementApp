@@ -31,6 +31,11 @@ namespace FamilyBudgetApp.Tests
             dbContext.Bugets.AddRange(data);
         }
 
+        [TearDown]
+        public void Teardown()
+        {
+            dbContext.Database.EnsureDeleted();
+        }
         //ChargeBalance
         [Test]
         public async Task Method_ChargeBalance_ThrowsException_AmountEqualOrLessThanZero()
@@ -39,18 +44,19 @@ namespace FamilyBudgetApp.Tests
 
             var ex = Assert.ThrowsAsync<ArgumentNullException>(async () => await budgetService.ChargeBudgetAsync(-1));
 
-                Assert.AreEqual(ex.ParamName, "Amount is invalid!");
-            
+                Assert.AreEqual(ex.ParamName, "Amount is invalid!");               
         }
         [Test]
-        public async Task Method_ChargeBalance_ThrowsException_NoBudget()
-        {          
-         
+        public void Method_ChargeBalance_ThrowsException_NoBudget() 
+        {
             var budgetService = new BudgetService(dbContext);
+          
+            var budgetDelete = dbContext.Bugets.Find((byte)1);       
+            dbContext.Bugets.Remove(budgetDelete);
+
             var ex = Assert.ThrowsAsync<ArgumentNullException>(async () => await budgetService.ChargeBudgetAsync(10));
              
-            Assert.AreEqual(ex.ParamName, "No budget found!");
-            
+            Assert.AreEqual(ex.ParamName, "No budget found!");   
         }
         [Test]
         public async Task Method_Charges_Balance()
@@ -61,7 +67,6 @@ namespace FamilyBudgetApp.Tests
             var dischargedBudget = await dbContext.Bugets.FirstOrDefaultAsync();
 
             Assert.That(dischargedBudget.Balance, Is.EqualTo(23.34m));
-
         }
 
         //DichargeBalance
@@ -83,16 +88,30 @@ namespace FamilyBudgetApp.Tests
         public async Task Method_Discharges_Balance()
         {
             var budgetService = new BudgetService(dbContext);
+           
+            var budgetUpdate = dbContext.Bugets.Find((byte)1);
+            budgetUpdate.Balance = 24m;
 
-            var chargedBudget =  dbContext.Bugets.FirstOrDefault(b => b.Id == (byte)1);
-       
-            dbContext.Update(chargedBudget);
+            dbContext.Bugets.Update(budgetUpdate);
 
             await budgetService.DischargeBudgetAsync(23.34m);
 
-            var dischargedBudget = await dbContext.Bugets.FirstOrDefaultAsync();
+            var budgetUpdate2 = dbContext.Bugets.Find((byte)1);
 
-            Assert.That(chargedBudget.Balance, Is.EqualTo(0.66m));
+            Assert.That(budgetUpdate2.Balance, Is.EqualTo(0.66m));
+        }
+
+        [Test]
+        public void Method_DischargeBalance_ThrowsException_NoBudget()
+        {
+            var budgetService = new BudgetService(dbContext);
+
+            var budgetDelete = dbContext.Bugets.Find((byte)1);
+            dbContext.Bugets.Remove(budgetDelete);
+
+            var ex = Assert.ThrowsAsync<ArgumentNullException>(async () => await budgetService.DischargeBudgetAsync(10));
+
+            Assert.AreEqual(ex.ParamName, "No budget found!");
         }
     }
 }
