@@ -1,4 +1,4 @@
-﻿namespace FamilyBudgetManagementApp.Models.Enums
+﻿namespace FamilyBudgetApp.Data.Enums
 {
     public class TypeEnum
     {

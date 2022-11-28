@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FamilyBudgetManagementApp.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace FamilyBudgetManagementApp.Models
+namespace FamilyBudgetApp.Data.Models
 {
     public class Budget
     {

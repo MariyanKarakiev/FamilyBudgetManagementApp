@@ -1,4 +1,5 @@
-﻿using FamilyBudgetManagementApp.Models;
+﻿using FamilyBudgetApp.Data.Models;
+using FamilyBudgetManagementApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FamilyBudgetManagementApp.Data
