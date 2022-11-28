@@ -48,7 +48,7 @@ namespace FamilyBudgetManagementApp.Services
         {
             CheckIfAmountIsEqualOrLessThanZero(amount);
 
-            var budget = await dbContext.FindAsync<Budget>(1);
+            var budget = await dbContext.FindAsync<Budget>((byte)1);
 
             CheckIfBudgetIsNull(budget);
 
