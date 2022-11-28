@@ -11,7 +11,7 @@ namespace FamilyBudgetApp.Data.Models
         [Required]
         public decimal Balance { get; set; }
 
-        public virtual ICollection<Transaction> Transactions { get; set; } = new HashSet<Transaction>();
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
     }
 }

@@ -16,11 +16,5 @@ namespace FamilyBudgetManagementApp.Data
         public DbSet<Budget> Bugets { get; set; }
 
         public DbSet<Transaction> Transactions { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-        }
     }
 }

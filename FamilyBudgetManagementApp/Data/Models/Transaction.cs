@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FamilyBudgetApp.Data.Enums;
+using FamilyBudgetApp.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace FamilyBudgetManagementApp.Models
 {
@@ -8,10 +10,10 @@ namespace FamilyBudgetManagementApp.Models
         public byte Id { get; set; }
 
         [Required]
-        public Enum Type { get; set; }
+        public TransactionType Type { get; set; }
 
         [Required]
-        public Enum Currency { get; set; }
+        public Currency Currency { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -30,5 +32,9 @@ namespace FamilyBudgetManagementApp.Models
 
         [Required]
         public bool IsReccuring { get; set;}
+
+        [Required]
+        public short BudgetId { get; set; }
+        public virtual Budget Budget { get; set; }
     }
 }
