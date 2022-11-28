@@ -2,6 +2,7 @@
 using FamilyBudgetManagementApp.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace FamilyBudgetManagementApp.Data
 {
     public class AppDbContext : DbContext
