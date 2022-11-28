@@ -88,17 +88,14 @@ namespace FamilyBudgetApp.Tests
         public async Task Method_Discharges_Balance()
         {
             var budgetService = new BudgetService(dbContext);
-           
-            var budgetUpdate = dbContext.Bugets.Find((byte)1);
-            budgetUpdate.Balance = 24m;
 
-            dbContext.Bugets.Update(budgetUpdate);
+            dbContext.Remove(budgetService);
 
             await budgetService.DischargeBudgetAsync(23.34m);
 
-            var budgetUpdate2 = dbContext.Bugets.Find((byte)1);
+            var dischargedBudget2 = dbContext.Bugets.Find((byte)1);
 
-            Assert.That(budgetUpdate2.Balance, Is.EqualTo(0.66m));
+            Assert.That(dischargedBudget2.Balance, Is.EqualTo(0.66m));
         }
 
         [Test]
