@@ -5,7 +5,7 @@ namespace FamilyBudgetManagementApp.Models
     public class Transaction
     {
         [Key]
-        public byte Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public Enum Type { get; set; }

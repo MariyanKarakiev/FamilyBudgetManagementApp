@@ -1,13 +1,10 @@
 ﻿namespace FamilyBudgetManagementApp.Models.Enums
 {
-    public class CurrencyEnum
+    public enum Currency
     {
-        enum Currency
-        {
-            BGN,
-            EUR,
-            USD,
-            GBP
-        }
+        BGN,
+        EUR,
+        USD,
+        GBP
     }
 }

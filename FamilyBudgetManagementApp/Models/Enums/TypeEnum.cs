@@ -1,11 +1,8 @@
 ﻿namespace FamilyBudgetManagementApp.Models.Enums
 {
-    public class TypeEnum
+    public enum Type
     {
-        enum Type
-        {
-            Income,
-            Outcome
-        }
+        Income,
+        Outcome
     }
 }
