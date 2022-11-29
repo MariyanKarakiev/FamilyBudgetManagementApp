@@ -2,9 +2,6 @@
 using FamilyBudgetApp.Data.Models;
 using FamilyBudgetManagementApp.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Reflection.Metadata;
-
 
 namespace FamilyBudgetManagementApp.Data
 {
@@ -13,7 +10,6 @@ namespace FamilyBudgetManagementApp.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<Budget> Bugets { get; set; }
