@@ -4,83 +4,137 @@ using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Models;
 using Microsoft.EntityFrameworkCore;
 using FamilyBudgetApp.Data.Enums;
+using FamilyBudgetManagementApp.Services;
 
 namespace FamilyBudgetApp.Services
 {
     public class TransactionService : ITransactionService
     {
         private AppDbContext dbContext;
+        private BudgetService budgetService;
 
-        public TransactionService(AppDbContext _dbContext)
+        public TransactionService(AppDbContext _dbContext, BudgetService _budgetService)
         {
             dbContext = _dbContext;
+            budgetService = _budgetService;
         }
 
         public async Task AddTransaction(TransactionViewModel model)
         {
+
+            var isCastToEnum = Enum.TryParse<Currency>(model.Currency, true, out Currency currency);
+
+            if (!isCastToEnum)
+            {
+                throw new InvalidCastException();
+
+            }
+
+            var isCastToEnumType = Enum.TryParse<TransactionType>(model.Currency, true, out TransactionType transactionType);
+
+            if (!isCastToEnum)
+            {
+                throw new InvalidCastException();
+
+            }
+
             Transaction transaction = new Transaction
             {
                 Amount = model.Amount,
-                //Do we give the user an option to add Transactions on specific dates?
+                //Do we give the user an option to add Transactions on specific dates? Nope
                 CreatedOn = DateTime.Now,
-                Currency = model.Currency,
+                Currency = currency,
                 IsReccuring = model.IsReccuring,
                 Name = model.Name,
                 ReccursOn = model.ReccursOn,
                 TimesReccuring = 0,
-                Type = model.Type
+                Type = transactionType
             };
 
-            await this.dbContext.Transactions.AddAsync(transaction);
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.Transactions.AddAsync(transaction);
+            await dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Transaction>> GetAllTransactions()
+
+
+        public async Task<List<TransactionViewModel>> GetAllTransactions()
         {
-            return await this.dbContext.Transactions.ToListAsync();
+            var transactions = await dbContext.Transactions.ToListAsync();
+
+            var models = transactions
+                .Select(t => new TransactionViewModel()
+                {
+                    Amount = t.Amount,
+                    CreatedOn = t.CreatedOn,
+                    Currency = t.Currency.ToString(),
+                    IsReccuring = t.IsReccuring,
+                    Name = t.Name,
+                    ReccursOn = t.ReccursOn,
+                    TimesReccuring = t.TimesReccuring,
+                    Type = t.Type.ToString()
+                })
+                .ToList();
+
+            return models;
         }
 
         //Is it logical to have the ability to Edit a transaction?
         //IsReccuring and ReccursOn are the only two that warant Edit action
         //If Edits to transactions are made, specifically Amount and Type, we need
         //to adjust the Budget as well. Do we do it here or Elsewhere?
+
+        // we have to inject budget service into transaction service and then use budgetService.ChargeBalance()
         public async Task EditTransaction(TransactionViewModel model)
         {
-            Transaction transaction = await this.dbContext.Transactions.FindAsync(model.Id);
+            Transaction transaction = await dbContext.Transactions.FindAsync(model.Id);
 
-            await this.AdjustBalance(model, transaction);
+            var isCastToEnum = Enum.TryParse<Currency>(model.Currency, true, out Currency currency);
 
-            transaction.Currency = model.Currency;
+            if (!isCastToEnum)
+            {
+                throw new InvalidCastException();
+
+            }
+
+            var isCastToEnumType = Enum.TryParse<TransactionType>(model.Currency, true, out TransactionType transactionType);
+
+            if (!isCastToEnum)
+            {
+                throw new InvalidCastException();
+
+            }
+
+
+            //charging and discharging budget, transaction should`t change the budget directly
+            if (transaction.Amount <= model.Amount)
+            {
+                await budgetService.DischargeBudgetAsync(model.Amount);
+            }
+            else
+            {
+                await budgetService.ChargeBudgetAsync(model.Amount - transaction.Amount);
+            }
+
+            transaction.Currency = currency;
             transaction.Amount = model.Amount;
             transaction.IsReccuring = model.IsReccuring;
             transaction.Name = model.Name;
             transaction.ReccursOn = model.ReccursOn;
-            transaction.Type = model.Type;
+            transaction.Type = transactionType;
 
-            this.dbContext.Transactions.Update(transaction);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.Transactions.Update(transaction);
+            await dbContext.SaveChangesAsync();
         }
 
 
         public async Task DeteleTransaction(TransactionViewModel model)
         {
-            Transaction transaction = await this.dbContext.Transactions.FindAsync(model.Id);
+            Transaction transaction = await dbContext.Transactions.FindAsync(model.Id);
+
+            //check if transaction is null
 
             this.dbContext.Transactions.Remove(transaction);
             await this.dbContext.SaveChangesAsync();
-        }
-
-        private async Task AdjustBalance(TransactionViewModel model, Transaction transaction)
-        {
-            if (transaction.Type == model.Type)
-            {
-                if (transaction.Type == TransactionType.Income)
-                {
-                    //var difference = transaction.Amount - model.Amount;
-                    //BudgetService budgetService = new BudgetService(this.dbContext);
-                    //await budgetService.DischargeBudgetAsync(difference);
-                }
-            }
         }
     }
 }

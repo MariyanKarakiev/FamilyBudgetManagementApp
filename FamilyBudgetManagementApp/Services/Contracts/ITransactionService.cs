@@ -7,12 +7,10 @@ namespace FamilyBudgetApp.Services.Contracts
     {
         public Task AddTransaction(TransactionViewModel model);
 
-        public Task<List<Transaction>> GetAllTransactions();
+        public Task<List<TransactionViewModel>> GetAllTransactions();
 
         public Task EditTransaction(TransactionViewModel model);
 
         public Task DeteleTransaction(TransactionViewModel model);
-
-        Task AdjustBalance(TransactionViewModel model, Transaction transaction);
     }
 }
