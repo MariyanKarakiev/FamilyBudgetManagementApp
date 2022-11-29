@@ -20,6 +20,7 @@ namespace FamilyBudgetApp.ViewModels
         [Required]
         public string Name { get; set; }
 
+        public decimal Amount { get; set; }
 
         [Required]
         public DateTime CreatedOn { get; set; }
