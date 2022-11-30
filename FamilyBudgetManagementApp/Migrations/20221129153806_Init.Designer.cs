@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamilyBudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221128183331_Seeding")]
-    partial class Seeding
+    [Migration("20221129153806_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,9 @@ namespace FamilyBudgetApp.Migrations
 
             modelBuilder.Entity("FamilyBudgetManagementApp.Models.Transaction", b =>
                 {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");

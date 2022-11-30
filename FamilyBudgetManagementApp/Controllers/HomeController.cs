@@ -1,4 +1,5 @@
-﻿using FamilyBudgetManagementApp.Models;
+﻿using FamilyBudgetApp.Services;
+using FamilyBudgetManagementApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,14 +8,18 @@ namespace FamilyBudgetManagementApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private TransactionService transactionService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, TransactionService _transactionService)
         {
             _logger = logger;
+            transactionService = _transactionService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var model = await transactionService.GetAllTransactions();
+
             return View();
         }
 

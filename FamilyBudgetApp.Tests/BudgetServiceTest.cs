@@ -2,9 +2,7 @@ using FamilyBudgetApp.Data.Models;
 using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Services;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
-using System.Linq;
+
 
 namespace FamilyBudgetApp.Tests
 {

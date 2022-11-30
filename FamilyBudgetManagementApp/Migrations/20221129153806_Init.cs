@@ -25,7 +25,7 @@ namespace FamilyBudgetApp.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<byte>(type: "tinyint", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Currency = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -46,6 +46,11 @@ namespace FamilyBudgetApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Bugets",
+                columns: new[] { "Id", "Balance" },
+                values: new object[] { (byte)1, 0.0m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BudgetId",

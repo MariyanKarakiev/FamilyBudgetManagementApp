@@ -1,4 +1,5 @@
-﻿using FamilyBudgetManagementApp.Data;
+﻿using FamilyBudgetApp.Services;
+using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +9,9 @@ namespace FamilyBudgetManagementApp.Extension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddSingleton<BudgetService>();
-           
+            services.AddTransient<BudgetService>();
+            services.AddTransient<TransactionService>();
+          
             return services;
         }
 

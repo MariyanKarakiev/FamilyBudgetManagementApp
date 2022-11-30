@@ -44,8 +44,9 @@ namespace FamilyBudgetApp.Migrations
 
             modelBuilder.Entity("FamilyBudgetManagementApp.Models.Transaction", b =>
                 {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");

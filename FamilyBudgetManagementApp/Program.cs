@@ -1,12 +1,13 @@
-using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Extension;
-using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddApplicationDbContexts(builder.Configuration);
+builder.Services
+    .AddApplicationServices()
+    .AddApplicationDbContexts(builder.Configuration);
 
 var app = builder.Build();
 
