@@ -19,6 +19,7 @@ namespace FamilyBudgetManagementApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BudgetConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
         }
     }
 }

@@ -24,10 +24,8 @@ namespace FamilyBudgetManagementApp.Models
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        [Required]
         public DateTime ReccursOn { get; set;}
 
-        [Required]
         public ushort TimesReccuring { get; set;}
 
         [Required]
