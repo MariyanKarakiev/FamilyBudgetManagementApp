@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  familybudgetapp:
+    image: ${DOCKER_REGISTRY-}familybudgetapp
+    build:
+      context: .
+      dockerfile: FamilyBudgetManagementApp/Dockerfile
+  sql-fba:
+    container_name: sql-fba
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - SA_PASSWORD=yourStrong(!)Password
+      - ACCEPT_EULA=Y
+      - DB_NAME=FamilyBudgetManagementApp
+    ports:
+      - "5434:1433"  

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyBudgetApp", "FamilyBudgetManagementApp\FamilyBudgetApp.csproj", "{47E8C755-19EE-48AE-A5DA-66BF096F249C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyBudgetApp.Tests", "FamilyBudgetApp.Tests\FamilyBudgetApp.Tests.csproj", "{331752E9-DBB7-4AEB-8833-029E18D3E6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyBudgetApp.Tests", "FamilyBudgetApp.Tests\FamilyBudgetApp.Tests.csproj", "{331752E9-DBB7-4AEB-8833-029E18D3E6B3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9CA4454B-3916-40D9-8E82-5C45D8E875F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{331752E9-DBB7-4AEB-8833-029E18D3E6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{331752E9-DBB7-4AEB-8833-029E18D3E6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{331752E9-DBB7-4AEB-8833-029E18D3E6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -51,6 +51,7 @@ namespace FamilyBudgetApp.Services
                 Type = transactionType
             };
 
+            await TransactOnBudget(transaction, model);
             await dbContext.Transactions.AddAsync(transaction);
             await dbContext.SaveChangesAsync();
         }
@@ -83,11 +84,12 @@ namespace FamilyBudgetApp.Services
         //If Edits to transactions are made, specifically Amount and Type, we need
         //to adjust the Budget as well. Do we do it here or Elsewhere?
 
-        // we have to inject budget service into transaction service and then use budgetService.ChargeBalance()
+        // we have to inject budget service into transaction service and then use budgetService.ChargeBalance() : Done
         public async Task EditTransaction(TransactionViewModel model)
         {
             Transaction transaction = await dbContext.Transactions.FindAsync(model.Id);
 
+            //check if transaction is null
             var isCastToEnum = Enum.TryParse<Currency>(model.Currency, true, out Currency currency);
 
             if (!isCastToEnum)
@@ -106,14 +108,7 @@ namespace FamilyBudgetApp.Services
 
 
             //charging and discharging budget, transaction should`t change the budget directly
-            if (transaction.Amount <= model.Amount)
-            {
-                await budgetService.DischargeBudgetAsync(model.Amount);
-            }
-            else
-            {
-                await budgetService.ChargeBudgetAsync(model.Amount - transaction.Amount);
-            }
+            await TransactOnBudget(transaction, model);
 
             transaction.Currency = currency;
             transaction.Amount = model.Amount;
@@ -135,6 +130,20 @@ namespace FamilyBudgetApp.Services
 
             this.dbContext.Transactions.Remove(transaction);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        //bez da iskam ti iztrih methoda sorry
+        //ako iskash smeni imeto
+        public async Task TransactOnBudget(Transaction transaction, TransactionViewModel model)
+        {
+            if (transaction.Amount <= model.Amount)
+            {
+                await budgetService.DischargeBudgetAsync(model.Amount);
+            }
+            else
+            {
+                await budgetService.ChargeBudgetAsync(model.Amount - transaction.Amount);
+            }
         }
     }
 }
