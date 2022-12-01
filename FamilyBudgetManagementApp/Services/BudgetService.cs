@@ -52,7 +52,10 @@ namespace FamilyBudgetManagementApp.Services
 
             CheckIfBudgetIsNull(budget);
 
-            //check if < 0
+            if (budget.Balance-amount<0)
+            {
+                throw new ArgumentException("Out of funds!");
+            }
             budget.Balance -= amount;
 
             dbContext.SaveChanges();

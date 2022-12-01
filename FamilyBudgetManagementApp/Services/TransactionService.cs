@@ -21,37 +21,20 @@ namespace FamilyBudgetApp.Services
 
         public async Task AddTransaction(TransactionViewModel model)
         {
-
-            var isCastToEnum = Enum.TryParse<Currency>(model.Currency, true, out Currency currency);
-
-            if (!isCastToEnum)
-            {
-                throw new InvalidCastException();
-
-            }
-
-            var isCastToEnumType = Enum.TryParse<TransactionType>(model.Currency, true, out TransactionType transactionType);
-
-            if (!isCastToEnum)
-            {
-                throw new InvalidCastException();
-
-            }
-
             Transaction transaction = new Transaction
             {
                 Amount = model.Amount,
                 CreatedOn = DateTime.Now,
-                Currency = currency,
+                Currency = model.Currency,
                 IsReccuring = model.IsReccuring,
                 Name = model.Name,
                 ReccursOn = model.ReccursOn,
                 TimesReccuring = 0,
-                Type = transactionType,
+                Type = model.Type,
                 BudgetId = 1
             };
 
-            await TransactOnBudget(transaction, model);
+            await TransactOnBudget(transaction);
             await dbContext.Transactions.AddAsync(transaction);
             await dbContext.SaveChangesAsync();
         }
@@ -68,12 +51,12 @@ namespace FamilyBudgetApp.Services
                     Id= t.Id,
                     Amount = t.Amount,
                     CreatedOn = t.CreatedOn,
-                    Currency = t.Currency.ToString(),
+                    Currency = t.Currency,
                     IsReccuring = t.IsReccuring,
                     Name = t.Name,
                     ReccursOn = t.ReccursOn,
                     TimesReccuring = t.TimesReccuring,
-                    Type = t.Type.ToString()
+                    Type = t.Type
                 })
                 .ToList();
 
@@ -91,12 +74,12 @@ namespace FamilyBudgetApp.Services
                     Id = transaction.Id,
                     Amount = transaction.Amount,
                     CreatedOn = transaction.CreatedOn,
-                    Currency = transaction.Currency.ToString(),
+                    Currency = transaction.Currency,
                     IsReccuring = transaction.IsReccuring,
                     Name = transaction.Name,
                     ReccursOn = transaction.ReccursOn,
                     TimesReccuring = transaction.TimesReccuring,
-                    Type = transaction.Type.ToString()
+                    Type = transaction.Type
                 };
 
             return model;
@@ -110,35 +93,17 @@ namespace FamilyBudgetApp.Services
 
             CheckClassIfNull(transaction);
 
-            var isCastToEnum = Enum.TryParse<Currency>(model.Currency, true, out Currency currency);
-
-            if (!isCastToEnum)
-            {
-                throw new InvalidCastException();
-
-            }
-
-            var isCastToEnumType = Enum.TryParse<TransactionType>(model.Currency, true, out TransactionType transactionType);
-
-            if (!isCastToEnum)
-            {
-                throw new InvalidCastException();
-
-            }
-
-            await TransactOnBudget(transaction, model);
-
-            transaction.Currency = currency;
+            transaction.Currency = model.Currency;
             transaction.Amount = model.Amount;
             transaction.IsReccuring = model.IsReccuring;
             transaction.Name = model.Name;
             transaction.ReccursOn = model.ReccursOn;
-            transaction.Type = transactionType;
+            transaction.Type = model.Type;
 
+            await TransactOnBudget(transaction);
             dbContext.Transactions.Update(transaction);
             await dbContext.SaveChangesAsync();
         }
-
 
         public async Task DeleteTransaction(TransactionViewModel model)
         {
@@ -152,15 +117,15 @@ namespace FamilyBudgetApp.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task TransactOnBudget(Transaction transaction, TransactionViewModel model)
+        public async Task TransactOnBudget(Transaction model)
         {
-            if (transaction.Amount <= model.Amount)
+            if (model.Type == TransactionType.Outcome)
             {
                 await budgetService.DischargeBudgetAsync(model.Amount);
             }
-            else
+            else if(model.Type == TransactionType.Income)
             {
-                await budgetService.ChargeBudgetAsync(model.Amount - transaction.Amount);
+                await budgetService.ChargeBudgetAsync(model.Amount);
             }
         }
 
