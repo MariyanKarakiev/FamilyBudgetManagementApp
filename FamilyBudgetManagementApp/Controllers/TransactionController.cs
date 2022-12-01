@@ -38,9 +38,13 @@ namespace FamilyBudgetApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TransactionViewModel model)
         {
-            await transactionService.AddTransaction(model);
+            if (ModelState.IsValid)
+            {
+                await this.transactionService.AddTransaction(model);
+                return Redirect("/");
+            }
 
-            return Redirect("/");
+            return View(model);
         }
 
         [HttpGet]
