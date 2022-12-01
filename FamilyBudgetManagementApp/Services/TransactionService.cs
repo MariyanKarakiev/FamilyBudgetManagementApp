@@ -41,7 +41,6 @@ namespace FamilyBudgetApp.Services
             Transaction transaction = new Transaction
             {
                 Amount = model.Amount,
-                //Do we give the user an option to add Transactions on specific dates? Nope
                 CreatedOn = DateTime.Now,
                 Currency = currency,
                 IsReccuring = model.IsReccuring,
@@ -79,17 +78,34 @@ namespace FamilyBudgetApp.Services
             return models;
         }
 
-        //Is it logical to have the ability to Edit a transaction?
-        //IsReccuring and ReccursOn are the only two that warant Edit action
-        //If Edits to transactions are made, specifically Amount and Type, we need
-        //to adjust the Budget as well. Do we do it here or Elsewhere?
+        public async Task<TransactionViewModel> GetTransaction(int id)
+        {
+            var transaction = await dbContext.Transactions.FindAsync(id);
 
-        // we have to inject budget service into transaction service and then use budgetService.ChargeBalance() : Done
+            var model = new TransactionViewModel
+                {
+                    Amount = transaction.Amount,
+                    CreatedOn = transaction.CreatedOn,
+                    Currency = transaction.Currency.ToString(),
+                    IsReccuring = transaction.IsReccuring,
+                    Name = transaction.Name,
+                    ReccursOn = transaction.ReccursOn,
+                    TimesReccuring = transaction.TimesReccuring,
+                    Type = transaction.Type.ToString()
+                };
+
+            return model;
+        }
+
         public async Task EditTransaction(TransactionViewModel model)
         {
-            Transaction transaction = await dbContext.Transactions.FindAsync(model.Id);
+            var transaction = await dbContext.Transactions.FindAsync(model.Id);
 
-            //check if transaction is null
+            if (transaction == null)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
             var isCastToEnum = Enum.TryParse<Currency>(model.Currency, true, out Currency currency);
 
             if (!isCastToEnum)
@@ -106,8 +122,6 @@ namespace FamilyBudgetApp.Services
 
             }
 
-
-            //charging and discharging budget, transaction should`t change the budget directly
             await TransactOnBudget(transaction, model);
 
             transaction.Currency = currency;
@@ -122,18 +136,19 @@ namespace FamilyBudgetApp.Services
         }
 
 
-        public async Task DeteleTransaction(TransactionViewModel model)
+        public async Task DeleteTransaction(TransactionViewModel model)
         {
-            Transaction transaction = await dbContext.Transactions.FindAsync(model.Id);
+            var transaction = await dbContext.Transactions.FindAsync(model.Id);
 
-            //check if transaction is null
+            if (transaction == null)
+            {
+                throw new IndexOutOfRangeException();
+            }
 
             this.dbContext.Transactions.Remove(transaction);
             await this.dbContext.SaveChangesAsync();
         }
 
-        //bez da iskam ti iztrih methoda sorry
-        //ako iskash smeni imeto
         public async Task TransactOnBudget(Transaction transaction, TransactionViewModel model)
         {
             if (transaction.Amount <= model.Amount)

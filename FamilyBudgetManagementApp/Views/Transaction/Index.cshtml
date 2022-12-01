@@ -57,6 +57,10 @@
                                 <td>@trans.CreatedOn</td>
                                 <td>@trans.IsReccuring</td>
                                 <td>@trans.TimesReccuring</td>
+                                <td>
+                                    <a asp-controller="Transaction" asp-action="Edit" asp-route-id="@trans.Id" class="btn btn-outline-primary">Edit</a>
+                                    <a asp-controller="Transaction" asp-action="Delete" asp-route-id="@trans.Id" class="btn btn-outline-primary">Delete</a>
+                                </td>
                             </tr>
                         }
                     }
