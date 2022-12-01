@@ -26,24 +26,6 @@ namespace FamilyBudgetApp.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Add()
-        {
-
-            //new TransactionViewModel()
-            //{
-            //    Name = "Initial",
-            //    Amount = 100,
-            //    BudgetId = 1,
-            //    Currency = "BGN",
-            //    Type = "Income",
-            //    CreatedOn = DateTime.Now,
-            //    IsReccuring = false
-            //};
-            await transactionService.GetAllTransactions();
-
-            return Ok();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {         
@@ -56,7 +38,7 @@ namespace FamilyBudgetApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TransactionViewModel model)
         {
-            await this.transactionService.AddTransaction(model);
+            await transactionService.AddTransaction(model);
 
             return Redirect("/");
         }

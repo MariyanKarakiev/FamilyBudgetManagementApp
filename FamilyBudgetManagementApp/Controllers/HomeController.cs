@@ -1,7 +1,9 @@
 ﻿using FamilyBudgetApp.Data.Enums;
 using FamilyBudgetApp.Services;
 using FamilyBudgetManagementApp.Models;
+using FamilyBudgetManagementApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace FamilyBudgetManagementApp.Controllers
@@ -9,20 +11,19 @@ namespace FamilyBudgetManagementApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private TransactionService transactionService;
+        private BudgetService budgetService;
 
 
-        public HomeController(ILogger<HomeController> logger, TransactionService _transactionService)
+        public HomeController(ILogger<HomeController> logger, BudgetService _budgetService)
         {
             _logger = logger;
-            transactionService = _transactionService;
+            budgetService = _budgetService;
         }
 
         public async Task<IActionResult> Index()
-        {
-            var model = await transactionService.GetAllTransactions();
-
-            return View();
+        {        
+           
+            return View(await budgetService.GetStatistics());
         }
 
         public IActionResult About()
