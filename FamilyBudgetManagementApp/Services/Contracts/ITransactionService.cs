@@ -11,6 +11,7 @@ namespace FamilyBudgetApp.Services.Contracts
 
         public Task EditTransaction(TransactionViewModel model);
 
+        public Task DeleteTransaction(TransactionViewModel model);
 <<<<<<< Updated upstream
         public Task DeteleTransaction(TransactionViewModel model);
 
