@@ -68,6 +68,17 @@ namespace FamilyBudgetManagementApp.Services
         }
         public async Task<BudgetViewModel> GetStatistics()
         {
+            var budget = await dbContext.FindAsync<Budget>(1);
+
+            CheckIfBudgetIsNull(budget);
+
+            var model = new BudgetViewModel()
+            {
+                Balance = budget.Balance
+
+            };
+
+
             var dates = new List<int>();
             var tAmounts = new List<decimal>();
 
