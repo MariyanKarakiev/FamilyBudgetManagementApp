@@ -128,12 +128,11 @@ namespace FamilyBudgetApp.Services
 
             //check if transaction is null
 
-            this.dbContext.Transactions.Remove(transaction);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.Transactions.Remove(transaction);
+            await dbContext.SaveChangesAsync();
         }
 
         //bez da iskam ti iztrih methoda sorry
-        //ako iskash smeni imeto
         public async Task TransactOnBudget(Transaction transaction, TransactionViewModel model)
         {
             if (transaction.Amount <= model.Amount)
