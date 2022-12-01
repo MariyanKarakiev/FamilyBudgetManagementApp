@@ -38,6 +38,8 @@ namespace FamilyBudgetApp.Services
 
             }
 
+            model = CheckReccursIfNull(model);
+
             Transaction transaction = new Transaction
             {
                 Amount = model.Amount,
@@ -45,7 +47,7 @@ namespace FamilyBudgetApp.Services
                 Currency = currency,
                 IsReccuring = model.IsReccuring,
                 Name = model.Name,
-                ReccursOn = model.ReccursOn,
+                ReccursOn = (DateTime)model.ReccursOn,
                 TimesReccuring = 0,
                 Type = transactionType,
                 BudgetId = 1
@@ -128,11 +130,13 @@ namespace FamilyBudgetApp.Services
 
             await TransactOnBudget(transaction, model);
 
+            model = CheckReccursIfNull(model);
+
             transaction.Currency = currency;
             transaction.Amount = model.Amount;
             transaction.IsReccuring = model.IsReccuring;
             transaction.Name = model.Name;
-            transaction.ReccursOn = model.ReccursOn;
+            transaction.ReccursOn = (DateTime)model.ReccursOn;
             transaction.Type = transactionType;
 
             dbContext.Transactions.Update(transaction);
@@ -170,6 +174,16 @@ namespace FamilyBudgetApp.Services
             {
                 throw new ArgumentNullException(classToCheck.GetType().ToString(), "Object was not passed correctly.");
             }
+        }
+
+        public TransactionViewModel CheckReccursIfNull(TransactionViewModel model)
+        {
+            if (model.ReccursOn == null)
+            {
+                model.ReccursOn = DateTime.Now;
+            }
+
+            return model;
         }
     }
 }
