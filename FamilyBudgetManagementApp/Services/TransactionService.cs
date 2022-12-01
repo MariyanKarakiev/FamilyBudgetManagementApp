@@ -47,7 +47,8 @@ namespace FamilyBudgetApp.Services
                 Name = model.Name,
                 ReccursOn = model.ReccursOn,
                 TimesReccuring = 0,
-                Type = transactionType
+                Type = transactionType,
+                BudgetId = 1
             };
 
             await TransactOnBudget(transaction, model);
@@ -64,6 +65,7 @@ namespace FamilyBudgetApp.Services
             var models = transactions
                 .Select(t => new TransactionViewModel()
                 {
+                    Id= t.Id,
                     Amount = t.Amount,
                     CreatedOn = t.CreatedOn,
                     Currency = t.Currency.ToString(),
@@ -78,12 +80,13 @@ namespace FamilyBudgetApp.Services
             return models;
         }
 
-        public async Task<TransactionViewModel> GetTransaction(int id)
+        public async Task<TransactionViewModel> GetTransaction(Guid id)
         {
             var transaction = await dbContext.Transactions.FindAsync(id);
 
             var model = new TransactionViewModel
                 {
+                    Id = transaction.Id,
                     Amount = transaction.Amount,
                     CreatedOn = transaction.CreatedOn,
                     Currency = transaction.Currency.ToString(),

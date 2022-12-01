@@ -8,7 +8,6 @@
 
 <h1>Edit</h1>
 
-<h4>TransactionViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -35,29 +34,26 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReccursOn" class="control-label"></label>
+                <label asp-for="ReccursOn" class="control-label">Reccurance Date</label>
                 <input asp-for="ReccursOn" class="form-control" />
                 <span asp-validation-for="ReccursOn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TimesReccuring" class="control-label"></label>
+                <label asp-for="TimesReccuring" class="control-label">Reccurance Counter</label>
                 <input asp-for="TimesReccuring" readonly class="form-control" />
                 <span asp-validation-for="TimesReccuring" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsReccuring" /> @Html.DisplayNameFor(model => model.IsReccuring)
+                    <input class="form-check-input" asp-for="IsReccuring" /> Reccuring bill?
                 </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

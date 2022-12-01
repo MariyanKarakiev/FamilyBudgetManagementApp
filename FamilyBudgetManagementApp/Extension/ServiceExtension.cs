@@ -17,7 +17,7 @@ namespace FamilyBudgetManagementApp.Extension
 
         public static IServiceCollection AddApplicationDbContexts(this IServiceCollection services, IConfiguration config)
         {
-            var connectionString = config.GetConnectionString("DefaultConnection");
+            var connectionString = config.GetConnectionString("DefaultConnection2");
 
             services.AddDbContext<AppDbContext>(options =>
                  options.UseSqlServer(connectionString));

@@ -38,7 +38,7 @@ namespace FamilyBudgetApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             return View(await this.transactionService.GetTransaction(id));
         }
@@ -53,7 +53,7 @@ namespace FamilyBudgetApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             return View(await this.transactionService.GetTransaction(id));
         }
