@@ -9,8 +9,10 @@ namespace FamilyBudgetApp.Services.Contracts
 
         public Task<List<TransactionViewModel>> GetAllTransactions();
 
+        public Task<TransactionViewModel> GetTransaction(Guid id);
+
         public Task EditTransaction(TransactionViewModel model);
 
-        public Task DeteleTransaction(TransactionViewModel model);
+        public Task DeleteTransaction(TransactionViewModel model);
     }
 }

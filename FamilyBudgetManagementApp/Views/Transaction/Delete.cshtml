@@ -1,0 +1,67 @@
+﻿@model FamilyBudgetApp.ViewModels.TransactionViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Creation Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        <dt class = "col-sm-2">
+            Reccurance Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReccursOn)
+        </dd>
+        <dt class = "col-sm-2">
+            Reccurence Counter
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimesReccuring)
+        </dd>
+        <dt class = "col-sm-2">
+            Reccuring Bill?
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsReccuring)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </form>
+</div>
