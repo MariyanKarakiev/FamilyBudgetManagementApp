@@ -124,8 +124,8 @@ namespace FamilyBudgetApp.Services
 
             CheckClassIfNull(transaction);
 
-            this.dbContext.Transactions.Remove(transaction);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.Transactions.Remove(transaction);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task TransactOnBudget(Transaction transaction, TransactionViewModel model)
