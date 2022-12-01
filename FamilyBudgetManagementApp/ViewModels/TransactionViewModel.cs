@@ -12,10 +12,10 @@ namespace FamilyBudgetApp.ViewModels
         public decimal Amount { get; set; }
 
         [Required]
-        public string Currency { get; set; }
+        public Currency Currency { get; set; }
       
         [Required]
-        public string Type { get; set; }
+        public TransactionType Type { get; set; }
 
         [Required]
         public string Name { get; set; }  
