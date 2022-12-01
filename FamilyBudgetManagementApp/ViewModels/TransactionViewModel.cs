@@ -6,7 +6,7 @@ namespace FamilyBudgetApp.ViewModels
 {
     public class TransactionViewModel
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public decimal Amount { get; set; }

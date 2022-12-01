@@ -2,13 +2,7 @@
 @using FamilyBudgetApp.ViewModels;
 @model List<TransactionViewModel>
 @{
-    ViewData["Title"] = "Home Page";
-    var transs = new List<TransactionViewModel>()
-    {
-    new TransactionViewModel(){ Name="Water Bill",Amount=34.45M,Currency="BGN",Type="Outcome", CreatedOn=DateTime.Now,IsReccuring=true},
-    new TransactionViewModel() { Name = "Electric Bill", Amount = 34.45M, Currency = "EUR", Type = "Outcome", CreatedOn = DateTime.Now, IsReccuring = false },
-    new TransactionViewModel() { Name = "Phone Bill", Amount = 34.45M, Currency = "BGN", Type = "Income", CreatedOn = DateTime.Now, IsReccuring = true }
-    };
+    ViewData["Title"] = "Home Page";  
 }
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

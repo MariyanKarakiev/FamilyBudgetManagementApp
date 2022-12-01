@@ -65,7 +65,7 @@ namespace FamilyBudgetApp.Services
             var models = transactions
                 .Select(t => new TransactionViewModel()
                 {
-                    Id= t.Id.ToString(),
+                    Id= t.Id,
                     Amount = t.Amount,
                     CreatedOn = t.CreatedOn,
                     Currency = t.Currency.ToString(),
@@ -83,10 +83,12 @@ namespace FamilyBudgetApp.Services
         public async Task<TransactionViewModel> GetTransaction(Guid id)
         {
             var transaction = await dbContext.Transactions.FindAsync(id);
+           
+            CheckClassIfNull(transaction);
 
             var model = new TransactionViewModel
                 {
-                    Id = transaction.Id.ToString(),
+                    Id = transaction.Id,
                     Amount = transaction.Amount,
                     CreatedOn = transaction.CreatedOn,
                     Currency = transaction.Currency.ToString(),
