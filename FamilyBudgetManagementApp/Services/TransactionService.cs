@@ -30,9 +30,9 @@ namespace FamilyBudgetApp.Services
 
             }
 
-            var isCastToEnumType = Enum.TryParse<TransactionType>(model.Currency, true, out TransactionType transactionType);
+            var isCastToEnumType = Enum.TryParse<TransactionType>(model.Type, true, out TransactionType transactionType);
 
-            if (!isCastToEnum)
+            if (!isCastToEnumType)
             {
                 throw new InvalidCastException();
 

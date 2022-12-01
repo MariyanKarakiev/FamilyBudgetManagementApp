@@ -8,17 +8,19 @@ namespace FamilyBudgetApp.ViewModels
     {
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Amount cannot be 0 or nothing!")]
+        [Range(0.01, 9999999)]
         public decimal Amount { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select Currency.")]
         public string Currency { get; set; }
-      
-        [Required]
+
+        [Required(ErrorMessage = "Please select Type.")]
         public string Type { get; set; }
 
-        [Required]
-        public string Name { get; set; }  
+        [Required(ErrorMessage = "Please select name for transaction.")]
+        public string Name { get; set; } 
+        
         [Required]
         public DateTime CreatedOn { get; set; }
 
