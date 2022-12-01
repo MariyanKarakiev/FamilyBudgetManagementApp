@@ -3,25 +3,10 @@
 @model List<TransactionViewModel>
 @{
     ViewData["Title"] = "Home Page";
-    //var transs = new List<TransactionViewModel>()
-    //{
-    //new TransactionViewModel(){ Name="Water Bill",Amount=34.45M,Currency="BGN",Type="Outcome", CreatedOn=DateTime.Now,IsReccuring=true},
-    //new TransactionViewModel() { Name = "Electric Bill", Amount = 34.45M, Currency = "EUR", Type = "Outcome", CreatedOn = DateTime.Now, IsReccuring = false },
-    //new TransactionViewModel() { Name = "Phone Bill", Amount = 34.45M, Currency = "BGN", Type = "Income", CreatedOn = DateTime.Now, IsReccuring = true }
-    //};
 }
 <div class="card">
     <div class="card-header border-transparent">
         <h3 class="card-title">All transactions</h3>
-
-     @*   <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>*@
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">
@@ -46,7 +31,7 @@
                                 <td>@trans.Name</td>
                                 <td>@trans.Amount</td>
                                 <td>@trans.Currency</td>
-                                @if (trans.Type == "Outcome")
+                                @if (trans.Type.ToString() == "Outcome")
                                 {
                                     <td><span class="badge badge-danger"></span>@trans.Type</td>
                                 }

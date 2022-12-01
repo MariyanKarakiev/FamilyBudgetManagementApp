@@ -1,4 +1,5 @@
-﻿using FamilyBudgetApp.Services;
+﻿using FamilyBudgetApp.Data.Enums;
+using FamilyBudgetApp.Services;
 using FamilyBudgetManagementApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,6 +10,7 @@ namespace FamilyBudgetManagementApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private TransactionService transactionService;
+
 
         public HomeController(ILogger<HomeController> logger, TransactionService _transactionService)
         {

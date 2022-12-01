@@ -1,7 +1,9 @@
-﻿using FamilyBudgetApp.Services;
+﻿using FamilyBudgetApp.Data.Enums;
+using FamilyBudgetApp.Services;
 using FamilyBudgetApp.ViewModels;
 using FamilyBudgetManagementApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FamilyBudgetApp.Controllers
 {
@@ -18,23 +20,25 @@ namespace FamilyBudgetApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             var model = await transactionService.GetAllTransactions();
 
             return View(model);
         }
-        
+
         public async Task<IActionResult> Add()
         {
-            new TransactionViewModel()
-            {
-                Name = "Initial",
-                Amount = 100,
-                BudgetId = 1,
-                Currency = "BGN",
-                Type = "Income",
-                CreatedOn = DateTime.Now,
-                IsReccuring = false
-            };
+
+            //new TransactionViewModel()
+            //{
+            //    Name = "Initial",
+            //    Amount = 100,
+            //    BudgetId = 1,
+            //    Currency = "BGN",
+            //    Type = "Income",
+            //    CreatedOn = DateTime.Now,
+            //    IsReccuring = false
+            //};
             await transactionService.GetAllTransactions();
 
             return Ok();
@@ -42,7 +46,10 @@ namespace FamilyBudgetApp.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Create()
-        {
+        {         
+            ViewBag.Types = new SelectList(Enum.GetNames(typeof(TransactionType)).ToList());
+            ViewBag.Currency = new SelectList(Enum.GetNames(typeof(Currency)).ToList());
+
             return View();
         }
 
@@ -57,6 +64,9 @@ namespace FamilyBudgetApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            ViewBag.Types = new SelectList(Enum.GetNames(typeof(TransactionType)).ToList());
+            ViewBag.Currency = new SelectList(Enum.GetNames(typeof(Currency)).ToList());
+
             return View(await this.transactionService.GetTransaction(id));
         }
 
