@@ -1,4 +1,5 @@
 ﻿using FamilyBudgetApp.Services;
+using FamilyBudgetApp.ViewModels;
 using FamilyBudgetManagementApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,23 @@ namespace FamilyBudgetApp.Controllers
             var model = await transactionService.GetAllTransactions();
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Add()
+        {
+            new TransactionViewModel()
+            {
+                Name = "Initial",
+                Amount = 100,
+                BudgetId = 1,
+                Currency = "BGN",
+                Type = "Income",
+                CreatedOn = DateTime.Now,
+                IsReccuring = false
+            };
+            await transactionService.GetAllTransactions();
+
+            return Ok();
         }
     }
 }

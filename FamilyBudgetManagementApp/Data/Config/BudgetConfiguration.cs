@@ -13,7 +13,7 @@ namespace FamilyBudgetApp.Data.Config
                      new Budget
                      {
                          Id = (byte)1,
-                         Balance = 0.0M
+                         Balance = 100.0M
                      }
                 );
         }
