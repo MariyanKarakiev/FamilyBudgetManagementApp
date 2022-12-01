@@ -2,8 +2,6 @@
 using FamilyBudgetApp.Data.Models;
 using FamilyBudgetManagementApp.Models;
 using Microsoft.EntityFrameworkCore;
-using FamilyBudgetApp.ViewModels;
-
 namespace FamilyBudgetManagementApp.Data
 {
     public class AppDbContext : DbContext
@@ -22,7 +20,5 @@ namespace FamilyBudgetManagementApp.Data
             modelBuilder.ApplyConfiguration(new BudgetConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
         }
-
-        public DbSet<FamilyBudgetApp.ViewModels.TransactionViewModel> TransactionViewModel { get; set; }
     }
 }
