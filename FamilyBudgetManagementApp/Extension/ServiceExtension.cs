@@ -20,8 +20,7 @@ namespace FamilyBudgetManagementApp.Extension
             var connectionString = config.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<AppDbContext>(options =>
-                 options.UseSqlServer(connectionString,
-                     o => o.EnableRetryOnFailure()));
+                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             return services;
