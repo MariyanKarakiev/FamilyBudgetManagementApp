@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FamilyBudgetApp.Migrations
 {
-    public partial class InitialLocalTest : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,12 +50,12 @@ namespace FamilyBudgetApp.Migrations
             migrationBuilder.InsertData(
                 table: "Bugets",
                 columns: new[] { "Id", "Balance" },
-                values: new object[] { (byte)1, 0.0m });
+                values: new object[] { (byte)1, 100.0m });
 
             migrationBuilder.InsertData(
                 table: "Transactions",
                 columns: new[] { "Id", "Amount", "BudgetId", "CreatedOn", "Currency", "IsReccuring", "Name", "ReccursOn", "TimesReccuring", "Type" },
-                values: new object[] { new Guid("24ff6774-2b6c-454b-88ce-45d4e0c53fcf"), 100m, (byte)1, new DateTime(2022, 12, 1, 2, 38, 36, 101, DateTimeKind.Local).AddTicks(9359), 0, false, "Initial", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 0 });
+                values: new object[] { new Guid("f121ff9a-bec3-4d1b-b891-d05ddd48b19c"), 100m, (byte)1, new DateTime(2022, 12, 1, 10, 17, 8, 119, DateTimeKind.Local).AddTicks(9532), 0, false, "Initial", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BudgetId",

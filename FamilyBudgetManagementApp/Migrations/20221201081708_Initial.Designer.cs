@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamilyBudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221201003836_InitialLocalTest")]
-    partial class InitialLocalTest
+    [Migration("20221201081708_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace FamilyBudgetApp.Migrations
                         new
                         {
                             Id = (byte)1,
-                            Balance = 0.0m
+                            Balance = 100.0m
                         });
                 });
 
@@ -87,10 +87,10 @@ namespace FamilyBudgetApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("24ff6774-2b6c-454b-88ce-45d4e0c53fcf"),
+                            Id = new Guid("f121ff9a-bec3-4d1b-b891-d05ddd48b19c"),
                             Amount = 100m,
                             BudgetId = (byte)1,
-                            CreatedOn = new DateTime(2022, 12, 1, 2, 38, 36, 101, DateTimeKind.Local).AddTicks(9359),
+                            CreatedOn = new DateTime(2022, 12, 1, 10, 17, 8, 119, DateTimeKind.Local).AddTicks(9532),
                             Currency = 0,
                             IsReccuring = false,
                             Name = "Initial",
