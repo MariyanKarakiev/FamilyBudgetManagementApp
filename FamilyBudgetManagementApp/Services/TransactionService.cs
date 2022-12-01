@@ -65,7 +65,7 @@ namespace FamilyBudgetApp.Services
             var models = transactions
                 .Select(t => new TransactionViewModel()
                 {
-                    Id= t.Id,
+                    Id= t.Id.ToString(),
                     Amount = t.Amount,
                     CreatedOn = t.CreatedOn,
                     Currency = t.Currency.ToString(),
@@ -86,7 +86,7 @@ namespace FamilyBudgetApp.Services
 
             var model = new TransactionViewModel
                 {
-                    Id = transaction.Id,
+                    Id = transaction.Id.ToString(),
                     Amount = transaction.Amount,
                     CreatedOn = transaction.CreatedOn,
                     Currency = transaction.Currency.ToString(),
