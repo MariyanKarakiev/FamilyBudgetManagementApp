@@ -20,7 +20,6 @@
                 <p class="text-center">
                     <strong>Statistics for this month</strong>
                 </p>
-
                 <div class="chart">
                     <div class="chartjs-size-monitor">
                         <div class="chartjs-size-monitor-expand">
@@ -43,7 +42,7 @@
         <div class="row">
             <div class="col-sm-3 col-6">
                 <div class="description-block border-right">
-                    <h5 class="description-header">$35,210.43</h5>
+                    <h5 class="description-header">@Model.Balance</h5>
                     <span class="description-text">TOTAL BALANCE</span>
                 </div>
                 <!-- /.description-block -->
@@ -51,7 +50,7 @@
             <!-- /.col -->
             <div class="col-sm-3 col-6">
                 <div class="description-block border-right">
-                    <h3 class="description-header">$10,390.90</h3>
+                    <h3 class="description-header">$0</h3>
                     <span class="description-text">TOTAL OUTCOME</span>
                 </div>
                 <!-- /.description-block -->
@@ -59,7 +58,7 @@
             <!-- /.col -->
             <div class="col-sm-3 col-6">
                 <div class="description-block border-right">
-                    <h5 class="description-header" onload="">$24,813.53</h5>
+                    <h5 class="description-header" id="test"></h5>
                     <span class="description-text">TOTAL INCOME</span>
                 </div>
                 <!-- /.description-block -->
@@ -67,7 +66,7 @@
             <!-- /.col -->
             <div class="col-sm-3 col-6">
                 <div class="description-block">
-                    <h5 class="description-header">1200</h5>
+                    <h5 class="description-header">@yAxis</h5>
                     <span class="description-text">TOTAL TRANSACTIONS</span>
                 </div>
                 <!-- /.description-block -->
@@ -79,31 +78,33 @@
 </div>
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    @*    <script src="~/plugins/chart.js/Chart.min.js"></script>*@
     <script>
-        var xValues = [ 1,  1, 1];
-        var yValues = [34.00, 4.00,210.00];
+        document.getElementById("test").innerText = `@xAxis`
 
-            new Chart("myChart", {
-                type: "line",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        fill: false,
-                        lineTension: 0,
-                        backgroundColor: "rgba(0,0,255,1.0)",
-                        borderColor: "rgba(0,0,255,0.1)",
-                        data: yValues
-                    }]
-                },
-                options: {
-                    legend: { display: false },
-                    scales: {
-                        xAxes: [{ ticks: { min: 1, max: 31 } }],
-                    }
+        let xValues = JSON.parse(`@xAxis`);
+        let yValues = JSON.parse(`@yAxis`);
+
+        console.log(`"${@xAxis}"`);
+        console.log(yValues);
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    xAxes: [{ ticks: { min: 1, max: 31 } }],
                 }
-            });
-        
+            }
+        });     
     </script>
-
-                        }
+    }

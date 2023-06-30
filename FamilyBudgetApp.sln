@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyBudgetApp", "FamilyBu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyBudgetApp.Tests", "FamilyBudgetApp.Tests\FamilyBudgetApp.Tests.csproj", "{331752E9-DBB7-4AEB-8833-029E18D3E6B3}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9CA4454B-3916-40D9-8E82-5C45D8E875F2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{331752E9-DBB7-4AEB-8833-029E18D3E6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{331752E9-DBB7-4AEB-8833-029E18D3E6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{331752E9-DBB7-4AEB-8833-029E18D3E6B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CA4454B-3916-40D9-8E82-5C45D8E875F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

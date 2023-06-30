@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>9ca4454b-3916-40d9-8e82-5c45d8e875f2</ProjectGuid>
+    <ProjectGuid>a2435f32-0316-4caf-a10d-ffcd4281e824</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>familybudgetapp</DockerServiceName>

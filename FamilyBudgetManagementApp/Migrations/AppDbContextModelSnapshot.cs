@@ -85,10 +85,10 @@ namespace FamilyBudgetApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f121ff9a-bec3-4d1b-b891-d05ddd48b19c"),
+                            Id = new Guid("dff17f1b-8f0d-47a1-8733-a5f27ac32da8"),
                             Amount = 100m,
                             BudgetId = (byte)1,
-                            CreatedOn = new DateTime(2022, 12, 1, 10, 17, 8, 119, DateTimeKind.Local).AddTicks(9532),
+                            CreatedOn = new DateTime(2023, 2, 2, 9, 33, 48, 699, DateTimeKind.Local).AddTicks(4439),
                             Currency = 0,
                             IsReccuring = false,
                             Name = "Initial",

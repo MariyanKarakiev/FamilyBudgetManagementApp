@@ -6,12 +6,14 @@ services:
     build:
       context: .
       dockerfile: FamilyBudgetManagementApp/Dockerfile
-  sql-fba:
-    container_name: sql-fba
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    depends_on:
+        - "sqldata"
+  sqldata:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
     environment:
-      - SA_PASSWORD=yourStrong(!)Password
-      - ACCEPT_EULA=Y
-      - DB_NAME=FamilyBudgetManagementApp
+        SA_PASSWORD: "S3cur3P@ssW0rd!"
+        ACCEPT_EULA: "Y"
     ports:
-      - "5434:1433"  
+        - "1433:1433"
+    expose: 
+        - "1433"

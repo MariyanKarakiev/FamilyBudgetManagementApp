@@ -1,4 +1,4 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["FamilyBudgetManagementApp/FamilyBudgetManagementApp.csproj", "FamilyBudgetManagementApp/"]
-RUN dotnet restore "FamilyBudgetManagementApp/FamilyBudgetManagementApp.csproj"
+COPY ["FamilyBudgetManagementApp/FamilyBudgetApp.csproj", "FamilyBudgetManagementApp/"]
+RUN dotnet restore "FamilyBudgetManagementApp/FamilyBudgetApp.csproj"
 COPY . .
 WORKDIR "/src/FamilyBudgetManagementApp"
-RUN dotnet build "FamilyBudgetManagementApp.csproj" -c Release -o /app/build
+RUN dotnet build "FamilyBudgetApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "FamilyBudgetManagementApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "FamilyBudgetApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FamilyBudgetManagementApp.dll"]
+ENTRYPOINT ["dotnet", "FamilyBudgetApp.dll"]
