@@ -5,7 +5,7 @@ namespace FamilyBudgetManagementApp.Services.Contracts
 {
     public interface IBudgetService
     {
-        public Task<BudgetViewModel> GetBudgetInfoForStats();
+        public Task<BudgetViewModel> GetStatistics();
         public Task ChargeBudgetAsync(decimal amount);
         public Task DischargeBudgetAsync(decimal amount);
     }

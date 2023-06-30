@@ -24,7 +24,7 @@ namespace FamilyBudgetApp.ViewModels
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        public DateTime? ReccursOn { get; set; }
+        public DateTime ReccursOn { get; set; }
 
         [Required]
         public ushort TimesReccuring { get; set; }
