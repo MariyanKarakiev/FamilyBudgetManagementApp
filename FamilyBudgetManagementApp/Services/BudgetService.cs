@@ -63,9 +63,12 @@ namespace FamilyBudgetManagementApp.Services
                         )
                 .FirstOrDefaultAsync();
 
+            CheckIfNull(budget);
+
             budget.Balance = CalculateSum(budget.Transactions.ToList());
 
-            CheckIfNull(budget);
+            var totalIncome = CalculateSum(budget.Transactions.Where(t => t.Type == TransactionType.Income && t.CreatedOn.Month == DateTime.Now.Month).ToList());
+            var totalOutcome = CalculateSum(budget.Transactions.Where(t => t.Type == TransactionType.Outcome && t.CreatedOn.Month == DateTime.Now.Month).ToList());
 
             var dates = new List<int>();
             var transactionAmounts = new List<decimal>();
@@ -87,8 +90,11 @@ namespace FamilyBudgetManagementApp.Services
             var modelBudgetViewModel = new BudgetViewModel()
             {
                 Balance = budget.Balance,
-                MontlyTransactionsAmount = jsonStringAmount,
-                MontlyTransactionsDay = jsonStringDay
+                TotalIncome = totalIncome,
+                TotalOutcome = totalOutcome,
+                TotalTransactions = totalIncome-totalOutcome,
+                TransactionsAmountJson = jsonStringAmount,
+                DaysJson = jsonStringDay
             };
 
             return modelBudgetViewModel;
