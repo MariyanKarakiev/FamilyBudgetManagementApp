@@ -68,7 +68,7 @@ namespace FamilyBudgetManagementApp.Services
 
 
             (var daysJson, var transactionsJson) = await GetChartData(dateFrom, dateTo, budget);
-         
+
 
             var modelBudgetViewModel = new BudgetViewModel()
             {
@@ -78,7 +78,7 @@ namespace FamilyBudgetManagementApp.Services
                 // TotalTransactions = totalIncome - totalOutcome,
                 TransactionsJson = JsonConvert.SerializeObject(transactionsJson),
                 DaysJson = JsonConvert.SerializeObject(daysJson)
-        };
+            };
 
             return modelBudgetViewModel;
         }
@@ -96,7 +96,6 @@ namespace FamilyBudgetManagementApp.Services
 
             for (DateTime i = fromDate; i <= toDate; i = i.AddDays(1))
             {
-
                 //TO DO: Transaction is not binded with the date but just with
                 //the day(as a number) so when there are 2
                 //of the same date the transaction is doubled 13.06, 13.07  
@@ -109,10 +108,6 @@ namespace FamilyBudgetManagementApp.Services
                 dates.Add(i.Date.ToString("dd/MM/yyyy"));
                 transactionAmounts.Add(sum);
             }
-
-            //var daysJson = JsonConvert.SerializeObject(dates);
-            //var transactionsJson = JsonConvert.SerializeObject(transactionAmounts);
-
             return (dates, transactionAmounts);
         }
         public async Task<(string daysJson, string transactionsJson)> GetChartData(DateTime fromDate, DateTime toDate)
@@ -137,7 +132,6 @@ namespace FamilyBudgetManagementApp.Services
 
             for (DateTime i = fromDate; i <= toDate; i = i.AddDays(1))
             {
-
                 //TO DO: Transaction is not binded with the date but just with
                 //the day(as a number) so when there are 2
                 //of the same date the transaction is doubled 13.06, 13.07  
@@ -154,6 +148,8 @@ namespace FamilyBudgetManagementApp.Services
             var daysJson = JsonConvert.SerializeObject(dates);
             var transactionsJson = JsonConvert.SerializeObject(transactionAmounts);
 
+            //TO DO: Add another parameter currentBudgetJson that holds 
+            //value for the budget level on the given date
             return (daysJson, transactionsJson);
         }
 

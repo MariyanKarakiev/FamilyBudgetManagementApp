@@ -7,6 +7,15 @@
 <div class="card">
     <div class="card-header border-transparent">
         <h3 class="card-title">All transactions</h3>
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Search" class="btn btn-default" /> |
+                    <a asp-action="Index">Back to Full List</a>
+                </p>
+            </div>
+        </form>
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">

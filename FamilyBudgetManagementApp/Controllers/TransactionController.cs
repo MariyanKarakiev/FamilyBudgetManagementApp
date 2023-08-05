@@ -18,10 +18,19 @@ namespace FamilyBudgetApp.Controllers
             transactionService = _transactionService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            
-            var model = await transactionService.GetAllTransactions();
+            var model = new List<TransactionViewModel>();
+          
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model = await transactionService.GetAllTransactions(searchString);
+            }
+
+            else
+            {
+                model = await transactionService.GetAllTransactions();
+            }
 
             return View(model);
         }
