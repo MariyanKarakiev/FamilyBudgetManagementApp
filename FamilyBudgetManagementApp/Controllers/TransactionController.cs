@@ -67,8 +67,7 @@ namespace FamilyBudgetApp.Controllers
         }
 
         [HttpPost]
-        [ActionName(nameof(Edit))]
-        public async Task<IActionResult> EditConfirm(TransactionViewModel model)
+        public async Task<IActionResult> Edit(TransactionViewModel model)
         {
             await this.transactionService.EditTransaction(model);
 
@@ -82,8 +81,7 @@ namespace FamilyBudgetApp.Controllers
         }
 
         [HttpPost]
-        [ActionName(nameof(Delete))]
-        public async Task<IActionResult> DeleteConfirm(TransactionViewModel model)
+        public async Task<IActionResult> Delete(TransactionViewModel model)
         {
             await this.transactionService.DeleteTransaction(model);
 
