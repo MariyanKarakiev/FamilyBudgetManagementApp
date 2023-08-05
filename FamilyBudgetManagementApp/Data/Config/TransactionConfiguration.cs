@@ -10,7 +10,7 @@ namespace FamilyBudgetApp.Data.Config
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            var objs = GenerateTransactions(100);
+            var objs = GenerateTransactions(5);
             builder.HasData(objs);
         }
 
