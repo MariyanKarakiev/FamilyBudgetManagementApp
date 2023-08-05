@@ -9,7 +9,7 @@
         public decimal TotalOutcome { get; set; }
         public decimal TotalTransactions { get; set; }
 
-        public string TransactionsAmountJson { get; set; }
+        public string TransactionsJson { get; set; }
         public string DaysJson { get; set; }
 
     }

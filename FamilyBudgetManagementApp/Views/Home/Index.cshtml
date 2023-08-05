@@ -1,10 +1,11 @@
-﻿@using FamilyBudgetManagementApp.ViewModels;
+﻿@using FamilyBudgetApp.Common;
+@using FamilyBudgetManagementApp.ViewModels;
 @model BudgetViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
     var xAxis = Model.DaysJson;
-    var yAxis = Model.TransactionsAmountJson;
+    var yAxis = Model.TransactionsJson;
 
 }
 <head>
@@ -20,6 +21,15 @@
                 <p class="text-center">
                     <strong>Statistics for this month</strong>
                 </p>
+
+                @*
+                TO DO: Menu items from enum (week, month, year)
+                Call ajax to get accurate stats for the selected item
+                *@
+
+                <select id="period" asp-items="Html.GetEnumSelectList<PeriodOfTime>()">
+                </select>
+
                 <div class="chart">
                     <div class="chartjs-size-monitor">
                         <div class="chartjs-size-monitor-expand">
@@ -79,13 +89,10 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script>
-        let xValues = JSON.parse(`@xAxis`);
-        let yValues = JSON.parse(`@yAxis`);
+        let xValues = JSON.parse('@Html.Raw(xAxis)');
+        let yValues = JSON.parse('@Html.Raw(yAxis)');
 
-        console.log(`"${@xAxis}"`);
-        console.log(yValues);
-
-        new Chart("myChart", {
+        const chart = new Chart("myChart", {
             type: "line",
             data: {
                 labels: xValues,
@@ -100,9 +107,43 @@
             options: {
                 legend: { display: false },
                 scales: {
-                    xAxes: [{ ticks: { min: 1, max: 31 } }],
+                    xAxes: [{ ticks: { min: 1, max: 7 } }],
                 }
             }
-        });     
+        });
+
+        document.querySelector("#period").addEventListener("change", function () {
+
+            fetch('home/getchartdata/?periodOfTimeValue=' + this.value,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(datas => {
+                    console.log(datas.daysJson)
+
+                    xValues = JSON.parse(datas.daysJson)
+                    yValues = JSON.parse(datas.transactionsJson)
+
+                    chart.data = {
+                        labels: xValues,
+                        datasets: [{
+                            fill: false,
+                            lineTension: 0,
+                            backgroundColor: "rgba(0,0,255,1.0)",
+                            borderColor: "rgba(0,0,255,0.1)",
+                            data: yValues
+                        }]
+                    }
+
+
+                    chart.update();
+                })
+                .catch(error => console.error('Unable to get items.', error));
+        })
     </script>
     }
