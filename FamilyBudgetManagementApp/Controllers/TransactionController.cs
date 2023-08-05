@@ -24,6 +24,7 @@ namespace FamilyBudgetApp.Controllers
           
             if (!String.IsNullOrEmpty(searchString))
             {
+                ViewData["CurrentFilter"] = searchString;
                 model = await transactionService.GetAllTransactions(searchString);
             }
 
