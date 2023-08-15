@@ -100,7 +100,62 @@ namespace FamilyBudgetApp.Services
 
             return matchingTransactions;
         }
+        public async Task<List<TransactionViewModel>> GetPaginatedTransactionsList(int pageNumber, int pageSize, string searchParameter)
+        {
+            var transactions = await dbContext.Transactions
+                .OrderByDescending(t => t.CreatedOn)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
+            CheckClassIfNull(transactions);
+
+            if (!string.IsNullOrEmpty(searchParameter))
+            {
+                var matchingTransactions = new List<TransactionViewModel>();
+
+                Regex regex = new Regex(searchParameter, RegexOptions.IgnoreCase);
+
+                foreach (var transaction in transactions)
+                {
+                    if (regex.IsMatch(transaction.Name))
+                    {
+                        matchingTransactions
+                                            .Add(new TransactionViewModel()
+                                            {
+                                                Id = transaction.Id,
+                                                Amount = transaction.Amount,
+                                                CreatedOn = transaction.CreatedOn,
+                                                Currency = transaction.Currency,
+                                                IsReccuring = transaction.IsReccuring,
+                                                Name = transaction.Name,
+                                                ReccursOn = transaction.ReccursOn,
+                                                TimesReccuring = transaction.TimesReccuring,
+                                                Type = transaction.Type
+                                            });
+                    }
+                }
+
+                return matchingTransactions;
+            }
+            else
+            {
+                return transactions
+                                    .Select(transaction => new TransactionViewModel()
+                                    {
+                                        Id = transaction.Id,
+                                        Amount = transaction.Amount,
+                                        CreatedOn = transaction.CreatedOn,
+                                        Currency = transaction.Currency,
+                                        IsReccuring = transaction.IsReccuring,
+                                        Name = transaction.Name,
+                                        ReccursOn = transaction.ReccursOn,
+                                        TimesReccuring = transaction.TimesReccuring,
+                                        Type = transaction.Type
+                                    })
+                                    .ToList<TransactionViewModel>();
+            }
+        }
         public async Task<TransactionViewModel> GetTransaction(Guid id)
         {
             var transaction = await dbContext.Transactions.FindAsync(id);

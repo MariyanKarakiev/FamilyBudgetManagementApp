@@ -18,27 +18,21 @@ namespace FamilyBudgetApp.Controllers
             transactionService = _transactionService;
         }
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(int pageNumber, string searchString)
         {
             var model = new List<TransactionViewModel>();
-          
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                ViewData["CurrentFilter"] = searchString;
-                model = await transactionService.GetAllTransactions(searchString);
-            }
 
-            else
-            {
-                model = await transactionService.GetAllTransactions();
-            }
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["PageNumber"] = pageNumber;
+
+            model = await transactionService.GetPaginatedTransactionsList(pageNumber, 3, searchString);
 
             return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
-        {         
+        {
             ViewBag.Types = new SelectList(Enum.GetNames(typeof(TransactionType)).ToList());
             ViewBag.Currency = new SelectList(Enum.GetNames(typeof(Currency)).ToList());
 

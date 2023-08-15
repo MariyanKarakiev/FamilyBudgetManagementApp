@@ -1,18 +1,12 @@
 ﻿using FamilyBudgetApp.Data.Enums;
 using FamilyBudgetApp.Data.Models;
-using FamilyBudgetApp.ViewModels;
 using FamilyBudgetManagementApp.Data;
 using FamilyBudgetManagementApp.Models;
 using FamilyBudgetManagementApp.Services.Contracts;
 using FamilyBudgetManagementApp.ViewModels;
-using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json;
 using System.Data;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FamilyBudgetManagementApp.Services
 {
